@@ -24,15 +24,14 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.requiredText {
+  color: red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.flex-container-main {
+  display: flex;
+  flex-direction: column;
+  background-color: gold;
+  width: 450px;
+  height: 600px;
 }
