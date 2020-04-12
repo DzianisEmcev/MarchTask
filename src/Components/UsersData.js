@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
+import {UsersDataRender} from "./UsersDataRender";
 
 export class UsersData extends React.Component {
 
@@ -8,7 +9,7 @@ export class UsersData extends React.Component {
 
         this.state = {
             loading: true,
-            userData: ""
+            person: null
         }
     }
 
@@ -44,21 +45,44 @@ export class UsersData extends React.Component {
     //         });
     // }
 
-    async componentDidMount(){
+    // async componentDidMount(){
+    //
+    // debugger;
+    //
+    // await fetch('https://denis-emtsev-test-leverx.herokuapp.com/instances/', {mode: 'no-cors'})
+    //     .then(function(response) {
+    //         debugger;
+    //         return response.json();
+    //     } )
+    //     .then(function(result) {
+    //         debugger;
+    //     } )
+    //     .catch(e => console.log(e));
+    // console.log(this.state.userData);
+    //
+    // }
 
-        debugger;
-
-        await fetch('https://denis-emtsev-test-leverx.herokuapp.com/instances/', {mode: 'no-cors'})
-            .then(function(response) {
-                debugger;
+    async componentDidMount() {
+        const url = await fetch('https://denis-emtsev-test-leverx.herokuapp.com/instances/').then(
+            function (response) {
                 return response.json();
-            } )
-            .then(function(result) {
-                debugger;
-            } )
-            .catch(e => console.log(e));
-        console.log(this.state.userData);
+            }
+        ).catch(
+            function (e) {
+                console.log(e)
+            }
+        );
+        //console.log(url);
+        //debugger;
+        await this.setState({person: url, loading: false});
+        //console.log(this.state.userData);
+        // this.check();
     }
+
+    // check() {
+    //     debugger;
+    //     console.log(this.state.userData);
+    // }
 
 
     render() {
@@ -69,7 +93,17 @@ export class UsersData extends React.Component {
 
             <hr/>
 
-            {this.state.loading ? <div>Loading data...</div> : <div>person...</div>}
+            <div>
+                {this.state.loading || !this.state.person ? (
+                    <div>Loading...</div>
+                ) : (
+                    <div>
+                        <UsersDataRender data={this.state.person}>
+
+                        </UsersDataRender>
+                    </div>
+                )}
+            </div>
         </div>
     }
 }
